@@ -1,4 +1,5 @@
-import controller
+#import controller
+import controller_ev3 as controller
 from os import remove
 from os.path import isfile
 from time import sleep
@@ -19,16 +20,7 @@ def parse_instructions(instructions):
         elif parts[0] == "say":
             controller.say(" ".join(parts[1:]))
         elif parts[0] == "pause":
-            print("Pausing for {} seconds".format(parts[1]))
-            seconds = int(parts[1])
-            i = 0
-            while i < seconds:
-                if isfile('terminate'):
-                    remove('terminate')
-                    remove('lock')
-                    return
-                sleep(1)
-                i += 1
+            controller.pause(int(parts[1]))
         else:
             print("Illegal instruction: {}".format(parts[0]))
             #Invalid instruction
