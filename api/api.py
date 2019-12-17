@@ -36,7 +36,7 @@ class RunProgram(Resource):
 
         open('lock', 'w').close()
         instructions = request.json["instructions"]
-        Thread(target = parse_instructions, args = (instructions, )).start()
+        Thread(target = parse_instructions, args = (instructions, 1, )).start()
         return {'response': 'success'}, 200
 
 @api.route('/terminate')

@@ -4,8 +4,7 @@ from os import remove
 from os.path import isfile
 from time import sleep
 
-
-def parse_instructions(instructions):
+def parse_instructions(instructions, iteration):
     print("Parsing instructions: {}".format(instructions))
     for instruction in instructions:
         if isfile('terminate'):
@@ -21,6 +20,10 @@ def parse_instructions(instructions):
             controller.say(" ".join(parts[1:]))
         elif parts[0] == "pause":
             controller.pause(int(parts[1]))
+        elif parts[0] == "loop":
+            if iteration < int(parts[1]):
+                parse_instructions(instructions, iteration + 1)
+                return
         else:
             print("Illegal instruction: {}".format(parts[0]))
             #Invalid instruction
